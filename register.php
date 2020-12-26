@@ -102,7 +102,8 @@ if (isset($_POST['submit'])) {
                   <input type="text" class="form-control form-control-user" name="email" id="email" placeholder="email">
                 </div>
                 <div class="form-group">
-                  <select id="prodi" name="prodi" class="form-control form-control-user">
+                  <select id="prodi" name="prodi" class="form-control">
+                    <option disabled>--Silahkan Pilih Prodi--</option>
                     <option value="ab">Administrasi Bisnis</option>
                     <option value="ka">Komputerisasi Akuntansi</option>
                     <option value="mi">Manajemen Informatika</option>
@@ -112,7 +113,7 @@ if (isset($_POST['submit'])) {
                   <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="password">
                 </div>
                 <input type="submit" class="btn btn-primary btn-user btn-block" type='submit' name='submit' value='Simpan Data'>
-                Register Account
+
                 </a>
                 <hr>
               </form>

@@ -4,12 +4,41 @@ include 'koneksi.php';
 ?>
 
 
+<script type="text/javascript">
+  var rupiah = document.getElementById('rupiah');
+  rupiah.addEventListener('keyup', function(e) {
+    // tambahkan 'Rp.' pada saat ketik nominal di form kolom input
+    // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
+    rupiah.value = formatRupiah(this.value, 'Rp. ');
+  });
+  /* Fungsi formatRupiah */
+  function formatRupiah(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split = number_string.split(','),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
+    if (ribuan) {
+      separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+  }
+</script>
+
+
+
+
 
 <div class="loader"></div>
 <div class="container-fluid">
 
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Data Mahasiswa</h1>
+  <h1 class="h3 mb-2 text-gray-800">Data Registrasi</h1>
   <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
   <!-- DataTales Example -->
@@ -19,7 +48,7 @@ include 'koneksi.php';
         <span class="icon text-white-50">
           <i class="fas fa-plus"></i>
         </span>
-        <span class="text">Tambah Mahasiswa</span>
+        <span class="text">Tambah Registrasi</span>
       </a>
     </div>
     <div class="card-body">
@@ -132,7 +161,7 @@ include 'koneksi.php';
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Tambah Mahasiswa</h4>
+            <h4 class="modal-title">Tambah Registrasi</h4>
           </div>
           <div class="modal-body">
             <?php
@@ -173,19 +202,26 @@ include 'koneksi.php';
               </div>
 
               <div class="form-group">
+                <label>Diskon</label>
+                <input type="text" name="potongan" class="form-control" id="potongan" onkeyup="sum();">
+              </div>
+
+              <div class="form-group">
                 <label>Uang Muka</label>
                 <input type="text" name="uang_muka" class="form-control" id="uang_muka" onkeyup="sum();">
               </div>
 
-              <div class="form-group">
-                <label>Potongan</label>
-                <input type="text" name="potongan" class="form-control" id="potongan" value="Masih perbaikan">
-              </div>
+
 
               <div class="form-group">
                 <label>Sisa Pembayaran</label>
                 <input type="text" name="sisa_pembayaran" class="form-control" id="sisa_pembayaran" onkeyup="sum();">
               </div>
+              <!-- 
+              <div class="form-group">
+                <label>Rupiah</label>
+                <input type="text" name="rupiah" class="form-control" id="rupiah">
+              </div> -->
 
               <div class="form-group">
                 <label>Tahun akademik</label>
@@ -224,17 +260,40 @@ include 'koneksi.php';
               function sum() {
                 var biaya = document.getElementById('biaya').value;
                 var uang_muka = document.getElementById('uang_muka').value;
-                var result = parseInt(biaya) - parseInt(uang_muka);
+                var potongan = document.getElementById('potongan').value;
+                var result = parseInt(biaya) - (parseInt(biaya) * parseInt(potongan) / 100) - parseInt(uang_muka);
                 if (!isNaN(result)) {
                   document.getElementById('sisa_pembayaran').value = result;
                 }
               }
-              //$harga = $_POST['sisa_pembayaran'];
-              //$diskon = $_POST['potongan'];
-              //$nilai = ($diskon / 100) * $harga;
             </script>
 
 
+            <script>
+              var rupiah = document.getElementById('rupiah');
+              rupiah.addEventListener('keyup', function(e) {
+                // tambahkan 'Rp.' pada saat ketik nominal di form kolom input
+                // gunakan fungsi formatRupiah() untuk mengubah nominal angka yang di ketik menjadi format angka
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+              });
+              /* Fungsi formatRupiah */
+              function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                  split = number_string.split(','),
+                  sisa = split[0].length % 3,
+                  rupiah = split[0].substr(0, sisa),
+                  ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                // tambahkan titik jika yang di input sudah menjadi angka satuan ribuan
+                if (ribuan) {
+                  separator = sisa ? '.' : '';
+                  rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+              }
+            </script>
           </div>
         </div>
       </div>

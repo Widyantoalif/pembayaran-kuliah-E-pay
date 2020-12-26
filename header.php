@@ -137,7 +137,7 @@ $foto = mysqli_fetch_array($query);
             <div class="bg-white py-2 collapse-inner rounded">
               <!-- <h6 class="collapse-header">Custom Components:</h6> -->
               <a class="collapse-item" href="datauser.php">User</a>
-              <a class="collapse-item" href="datamahasiswa.php">Mahasiswa</a>
+              <a class="collapse-item" href="datamahasiswa.php">Registrasi</a>
             </div>
           </div>
         </li>
