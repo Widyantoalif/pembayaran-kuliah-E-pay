@@ -85,7 +85,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-2 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>Memberi kemudahan mahasiswa untuk pembayaran kuliah</h1>
+          <h1>Memberi kemudahan mahasiswa untuk pembayaran kuliahh</h1>
           <!-- <ul>
             <li><i class="ri-check-line"></i> Dolorem ratione dolorum</li>
             <li><i class="ri-check-line"></i> Quo nihil natus ea non pariatur optio occaecati</li>
